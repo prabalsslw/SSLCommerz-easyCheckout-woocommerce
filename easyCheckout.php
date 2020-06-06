@@ -69,6 +69,6 @@
 	        }
 	    }
 	    add_filter('woocommerce_gateway_icon', 'custom_gateway_icon', 10, 2);
-		}
+	}
 
 ?>
