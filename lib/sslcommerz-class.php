@@ -99,8 +99,9 @@
 
         public function admin_options()
         {
-            echo '<h3>' . __('SSLCommerz Payment Gateway', 'sslcommerz') . '</h3>';
-            echo '<p>' . __('Configure parameters to start accepting payments.') . '</p>';
+            echo '<h2>' . __('SSLCommerz Payment Gateway', 'sslcommerz') . '</h2>';
+            echo '<p>' . __('Configure parameters to start accepting payments.') . '</p><hr>';
+            echo "<h4 style='color:green;'>" . __("Register for sandbox merchant panel & store credentials <a href='https://developer.sslcommerz.com/registration/' target='blank'>Click Here</a> .") . "</h4><hr>";
             echo '<table class="form-table">';
             // Generate the HTML For the settings form.
             $this->generate_settings_html();
@@ -188,7 +189,7 @@
                     order="<?php echo $order;?>"
                     endpoint="<?php echo get_site_url(); ?>/easyCheckout.php?v4checkout">Pay Via SSLCommerz
                 </button>
-                <button class="button cancel">Cancel</button>
+                &nbsp;&nbsp; <a href="../">Cancel</a>
                 <script type="text/javascript">
                     var url = <?php echo "'$jsurl'"; ?>;
                     (function (window, document) {

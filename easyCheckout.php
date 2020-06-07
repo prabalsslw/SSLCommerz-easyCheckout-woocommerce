@@ -7,8 +7,8 @@
 *  Stable tag: 4.0.0
 *  WC tested up to: 4.2.0
 *  Author: Prabal Mallick
+*  Author URI: prabalsslw.github.io
 *  Author Email: integration@sslcommerz.com
-*  Copyright: © 2015-2020 SSLCommerz.
 *  License: GNU General Public License v3.0
 *  License URI: http://www.gnu.org/licenses/gpl-3.0.html
 **/
@@ -47,6 +47,7 @@
 		    $pluginLinks = array(
 	            'settings' => '<a href="'. esc_url(admin_url( 'admin.php?page=wc-settings&tab=checkout&section=sslcommerz')) .'">Settings</a>',
 	            'docs'     => '<a href="https://developer.sslcommerz.com/doc/v4/" target="blank">Docs</a>',
+	            'sandbox'     => '<a href="https://developer.sslcommerz.com/registration/" target="blank">Create Sandbox</a>',
 	            'support'  => '<a href="mailto:integration@sslcommerz.com">Support</a>'
 	        );
 
