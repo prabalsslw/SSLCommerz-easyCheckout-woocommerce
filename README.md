@@ -51,10 +51,10 @@
 > Payment Gateway is a service that allows merchant to accept secure credit card transactions online. It essentially connects a merchant website to a transaction processor like bank to take payment from a customer for an order.
 
 ### What is IPN?
-> This is an important and interesting part of integration. If somehow your consumer pays your payable amount to BANK Side and SSLCommerz accept it as SUCCESS but your website/Connectivity/Customer Network got downtime and unable to update the payment at your side you can use IPN (Instant Payment Notification). It will send a notification to your set up URL in SSLCommerz Merchant Dashboard to notify you and your database even if your user unable to return back to your website.
+> This is an important and interesting part of integration. If somehow your consumer pays your payable amount to BANK Side and SSLCommerz accept it as SUCCESS but your website/Connectivity/Customer Network got downtime and unable to update the payment at your side you can use `IPN (Instant Payment Notification)`. It will send a notification to your set up URL in SSLCommerz Merchant Dashboard to notify you and your database even if your user unable to return back to your website.
 
 ### I want to enable EMI option, how it works?
-> To enable EMI option first you have to make an agreement with us. To do that please communicate with the Business person, you have communicate at the time of Store registration. Besides this in live, you will have EMI configuration option after login to your Merchant report panel go to My Stores>EMI Settings.
+> To enable EMI option first you have to make an agreement with us. To do that please communicate with the Business person, you have communicate at the time of Store registration. Besides this in live, you will have EMI configuration option after login to your Merchant report panel go to `My Stores>EMI Settings`.
 
 ### I want my customer will bear the gateway charges. How can I do that?
 > Yes, We have solution for this, you can configure this from your merchant panel or mail to `operation@sslcommerz.com` .
