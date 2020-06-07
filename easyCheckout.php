@@ -1,8 +1,8 @@
 <?php 
 /**
 *  Plugin Name: SSLCommerz easyCheckout
-*  Plugin URI: https://github.com/prabalsslw/SSLCommerz-easyCheckout-woocommerce
-*  Description: This plugin allows you to accept payments on your WooCommerce store from customers using Visa Cards, Master cards, American Express etc. Via SSLCommerz payment gateway with new V4 Hosted API.
+*  Plugin URI: https://sslcommerz.com/
+*  Description: This plugin allows you to accept payments on your WooCommerce store from customers using Visa Cards, Master cards, American Express etc. Via SSLCommerz payment gateway with new V4 API.
 *  Version: 4.0.0
 *  Stable tag: 4.0.0
 *  WC tested up to: 4.2.0

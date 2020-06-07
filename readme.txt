@@ -2,7 +2,7 @@
 Contributors: prabalsslw
 Tags: sslcommerz, Payment, gateway, easycheckout, bangladesh, hosted
 Author URI: https://prabalsslw.wixsite.com/prabal
-Plugin URI: https://github.com/prabalsslw/SSLCommerz-easyCheckout-woocommerce
+Plugin URI: https://www.sslcommerz.com/
 Version: 4.0.0
 Requires PHP: 7.0
 Requires at least: 3.6
@@ -15,7 +15,7 @@ WooCommerce plugin for SSLCommerz payment gateway with IPN Support.
 
 == Prerequisites ==
 - WordPress 5.x.x
-- WooCommerce 4.1.x
+- WooCommerce 4.2.x
 - cURL php extension.
 
 == Description ==
