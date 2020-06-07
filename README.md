@@ -9,6 +9,7 @@
 1. Wordpress 5.1.*
 2. WooCommerce 3.6.*
 3. cURL php extension.
+4. [Sandbox Account](https://developer.sslcommerz.com/registration/ "SSLCommerz Sandbox Registration")
 
 ### Installation
 
