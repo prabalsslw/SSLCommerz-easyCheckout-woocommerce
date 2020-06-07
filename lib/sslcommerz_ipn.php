@@ -50,17 +50,35 @@
 					{
 						if($_POST['amount'] != "")
 						{		
-							date_default_timezone_set("Asia/Dhaka");
-							$order -> update_status('Processing');
-							$order -> payment_complete();
-							$woocommerce->cart->empty_cart();
-							$result_msg =  "<b>IPN Message</b><br>";
-							$result_msg .=  "IPN: Validation success-".$result->status."<br>";
-							$result_msg .=  "IPN: Tran ID-".$tran_id."<br>";
-							$result_msg .=  "IPN: Val ID-".$val_id."<br>";
-							$result_msg .=  "IPN: Order Status Updated<br>";
-							$result_msg .=  "IPN: Cart Empty<br>";
-							$result_msg .=  "IPN: Hit Time - ".date("l d-m-yy h:i:s");
+							if($result->risk_level == 0)
+							{
+								date_default_timezone_set("Asia/Dhaka");
+								$order -> update_status('Processing');
+								$order -> payment_complete();
+								$woocommerce->cart->empty_cart();
+								$result_msg =  "<b>IPN Message</b><br>";
+								$result_msg .=  "IPN: Validation success-".$result->status."<br>";
+								$result_msg .=  "IPN: Tran ID-".$tran_id."<br>";
+								$result_msg .=  "IPN: Val ID-".$val_id."<br>";
+								$result_msg .=  "IPN: Order Status Updated<br>";
+								$result_msg .=  "IPN: Cart Empty<br>";
+								$result_msg .=  "IPN: Hit Time - ".date("l d-m-yy h:i:s");
+							}
+							else
+							{
+								date_default_timezone_set("Asia/Dhaka");
+								$order -> update_status('on-hold');
+								$order -> payment_complete();
+								$woocommerce->cart->empty_cart();
+								$result_msg =  "<b>IPN Message</b><br>";
+								$result_msg .=  "IPN: Validation success but found Risky-".$result->status."<br>";
+								$result_msg .=  "IPN: Risk Level-".$result->risk_level."<br>";
+								$result_msg .=  "IPN: Tran ID-".$tran_id."<br>";
+								$result_msg .=  "IPN: Val ID-".$val_id."<br>";
+								$result_msg .=  "IPN: Order Status Updated<br>";
+								$result_msg .=  "IPN: Cart Empty<br>";
+								$result_msg .=  "IPN: Hit Time - ".date("l d-m-yy h:i:s");
+							}
 						}
 						else
 						{
