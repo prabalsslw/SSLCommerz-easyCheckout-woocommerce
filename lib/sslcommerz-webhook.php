@@ -1,5 +1,9 @@
 <?php 
 
+/*
+* Rewrite url for IPN listener.
+*/
+
 class SSLCommerz_Ipn
 {
 

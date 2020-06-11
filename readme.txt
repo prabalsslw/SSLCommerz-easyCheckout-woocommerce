@@ -1,12 +1,12 @@
-=== SSLCommerz easyCheckout for Woocommerce ===
+=== SSLCommerz Payment Gateway ===
 Contributors: prabalsslw
-Tags: sslcommerz, Payment, gateway, easycheckout, bangladesh, hosted
+Tags: sslcommerz, Payment, gateway, easycheckout, hosted, bangladesh, official
 Author URI: prabalsslw.github.io
 Plugin URI: https://sslcommerz.com/
 Version: 4.0.0
 Requires PHP: 7.0
 Requires at least: 3.6
-Tested up to: 5.4.1
+Tested up to: 5.4.2
 Stable tag: 4.0.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -23,6 +23,7 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 SSLCOMMERZ is the first payment gateway in Bangladesh opening doors for merchants to receive payments on the internet via their online stores. Their customers will be able to buy products online using their credit cards as well as bank accounts. If you are a merchant, you have come to the right place! WooCommerce plugin for SSLCommerz payment gateway with Dynamic IPN Support.This plugin allows you to accept payments on your WooCommerce store from customers using Visa Cards, Master cards, American Express etc. Via SSLCommerz payment gateway with new V4 EasyCheckout API.
 
     * Easy to install!
+    * IPN Webhook
 
 == Installation ==
 
@@ -70,14 +71,15 @@ SSLCOMMERZ is the first payment gateway in Bangladesh opening doors for merchant
 - GPL3
 
 == Changelog ==
-- Initial release
+= 4.0 =
+> Release Date - 11 June 2020
 
-== Upgrade Notice ==
-= 1.0 =
-Initial release!
 * The plugin will transparently support sandbox & securepay.
 * Hosted & Popup both supported.
 * Dynamic IPN configured.
+
+== Upgrade Notice ==
+> Release Date - 11 June 2020
      
 == Screenshots ==
 1. Install the plugin.

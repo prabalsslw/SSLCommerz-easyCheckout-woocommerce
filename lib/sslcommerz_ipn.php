@@ -1,7 +1,8 @@
 <?php
 	if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-	if(get_option('woocommerce_sslcommerz_settings')!='') {
+	if(get_option('woocommerce_sslcommerz_settings')!='') 
+	{
 		$data=get_option('woocommerce_sslcommerz_settings');
 		if ($data['store_id'] != '' || $data['store_password'] != '') {
 			$store_id = $data['store_id'];
@@ -15,32 +16,37 @@
 		} else {
 			$url = "https://securepay.sslcommerz.com/validator/api/validationserverAPI.php";
 		}
-	} else {
-		die("SSLCOMMERZ payment gateway is not enabled!");
+	} 
+	else {
+		die("SSLCommerz payment gateway is not enabled!");
 	}
 
 	if(isset($_POST['tran_id']) && isset($_POST['val_id']) && (isset($_POST['status']) && $_POST['status'] == "VALID")) 
 	{
 		global $woocommerce;
-		$tran_id = $_POST['tran_id'];
-		$val_id = $_POST['val_id'];
-
-		// echo $orderid = substr($tran_id, 0, strpos($tran_id, '_'));
+		$tran_id = sanitize_text_field($_POST['tran_id']);
+		$val_id = sanitize_text_field($_POST['val_id']);
 
         $order = new WC_Order($tran_id);
 
 		$requested_url = ($url."?val_id=".$val_id."&Store_Id=".$store_id."&Store_Passwd=".$store_passwd."&v=1&format=json");
-		$handle = curl_init();
-		curl_setopt($handle, CURLOPT_URL, $requested_url);
-		curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, false);
-		curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false);
-		$result = curl_exec($handle);
-		$code = curl_getinfo($handle, CURLINFO_HTTP_CODE);
+		$result = wp_remote_post(
+			$requested_url,
+			array(
+				'method'      => 'GET',
+				'timeout'     => 30,
+				'redirection' => 10,
+				'httpversion' => '1.1',
+				'blocking'    => true,
+				'headers'     => array(),
+				'body'        => array(),
+				'cookies'     => array(),
+			)
+		);
 
-		if($code == 200 && !( curl_errno($handle))) 
+		if($result['response']['code'] == 200)
 		{	
-			$result = json_decode($result);
+			$result = json_decode($result['body']);
 	
 			if($order->get_total() == trim($result->currency_amount))
 			{ 
@@ -52,7 +58,6 @@
 						{		
 							if($result->risk_level == 0)
 							{
-								date_default_timezone_set("Asia/Dhaka");
 								$order -> update_status('Processing');
 								$order -> payment_complete();
 								$woocommerce->cart->empty_cart();
@@ -66,7 +71,6 @@
 							}
 							else
 							{
-								date_default_timezone_set("Asia/Dhaka");
 								$order -> update_status('on-hold');
 								$order -> payment_complete();
 								$woocommerce->cart->empty_cart();

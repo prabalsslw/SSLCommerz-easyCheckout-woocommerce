@@ -1,5 +1,4 @@
 <?php 
-
 	if (!class_exists('WC_Payment_Gateway')) return;
 
     class WC_sslcommerz extends WC_Payment_Gateway
@@ -15,23 +14,24 @@
 
             $this->title            = $this->settings['title'];
             $this->description      = $this->settings['description'];
-            $this->store_id      = $this->settings['store_id'];
-            $this->store_id      = $this->settings['store_id'];
+            $this->store_id         = $this->settings['store_id'];
+            $this->store_id         = $this->settings['store_id'];
             $this->store_password   = $this->settings['store_password'];
-            $this->testmode           = $this->get_option('testmode');
-            $this->testurl            =  "https://sandbox.sslcommerz.com/gwprocess/v4/api.php";
+            $this->testmode         = $this->get_option('testmode');
+            $this->testurl          =  "https://sandbox.sslcommerz.com/gwprocess/v4/api.php";
             $this->liveurl          =  "https://securepay.sslcommerz.com/gwprocess/v4/api.php";
             $this->redirect_page_id = $this->settings['redirect_page_id'];
             $this->fail_page_id		= $this->settings['fail_page_id'];
 
-            $this->msg['message'] = "";
-            $this->msg['class'] = "";
+            $this->msg['message']   = "";
+            $this->msg['class']     = "";
 
             add_action('woocommerce_api_' . strtolower(get_class($this)), array($this, 'check_SSLCommerz_response'));
  
             if (version_compare(WOOCOMMERCE_VERSION, '2.0.0', '>=')) {
                 add_action('woocommerce_update_options_payment_gateways_' . $this->id, array($this, 'process_admin_options'));
-            } else {
+            } 
+            else {
                 add_action('woocommerce_update_options_payment_gateways', array(&$this, 'process_admin_options'));
             }
             add_action('woocommerce_receipt_sslcommerz', array($this, 'receipt_page'));
@@ -41,10 +41,10 @@
         {
             $this->form_fields = array(
                 'enabled' => array(
-                    'title' => __('Enabled', 'sslcommerz'),
-                    'type' => 'checkbox',
-                    'label' => __('Enable SSLCommerz Payment Module.', 'sslcommerz'),
-                    'default' => 'yes'
+                    'title'       => __('Enabled', 'sslcommerz'),
+                    'type'        => 'checkbox',
+                    'label'       => __('Enable SSLCommerz Payment Module.', 'sslcommerz'),
+                    'default'     => 'yes'
                 ),
                 'testmode' => array(
                     'title'       => __('Testmode', 'woocommerce'),
@@ -61,37 +61,37 @@
                     'description' => __('Hosted checkout will redirect customer to SSLCommerz Server.'),
                 ),
                 'title' => array(
-                    'title' => __('Title to show', 'sslcommerz'),
-                    'type' => 'text',
+                    'title'       => __('Title to show', 'sslcommerz'),
+                    'type'        => 'text',
                     'description' => __('This will be shown as the payment method name on the checkout page.', 'sslcommerz'),
-                    'default' => __('Pay Online(Credit/Debit Card/MobileBanking/NetBanking/bKash)', 'sslcommerz')
+                    'default'     => __('Pay Online(Credit/Debit Card/MobileBanking/NetBanking/bKash)', 'sslcommerz')
                 ),
                 'description' => array(
-                    'title' => __('Description to show', 'sslcommerz'),
-                    'type' => 'textarea',
+                    'title'       => __('Description to show', 'sslcommerz'),
+                    'type'        => 'textarea',
                     'description' => __( 'This will be shown as the payment method description on the checkout page.', 'sslcommerz'),
-                    'default' => __('Pay securely by Credit/Debit card, Internet banking or Mobile banking through SSLCommerz.', 'sslcommerz')
+                    'default'     => __('Pay securely by Credit/Debit card, Internet banking or Mobile banking through SSLCommerz.', 'sslcommerz')
                 ),
                 'store_id' => array(
-                    'title' => __('Store ID', 'sslcommerz'),
-                    'type' => 'text',
+                    'title'       => __('Store ID', 'sslcommerz'),
+                    'type'        => 'text',
                     'description' => __( 'API store id <span style="color: red;">(NOT the merchant panel id)</span>. You should obtain this info from SSLCommerz.')
                 ),
                 'store_password' => array(
-                    'title' => __('Store Password', 'sslcommerz'),
-                    'type' => 'text',
+                    'title'       => __('Store Password', 'sslcommerz'),
+                    'type'        => 'text',
                     'description' => __( 'API store password <span style="color: red;">(NOT the merchant panel password)</span>. You should obtain this info from SSLCommerz.')
                 ),
                 'redirect_page_id' => array(
-                    'title' => __('Select Success Page'),
-                    'type' => 'select',
-                    'options' => $this->get_pages( 'Select Success Page'),
+                    'title'       => __('Select Success Page'),
+                    'type'        => 'select',
+                    'options'     => $this->get_pages( 'Select Success Page'),
                     'description' => "User will be redirected here after a successful payment. We recommend <span style='color: green;'><b>Checkout Page</b></span>."
                 ),
                 'fail_page_id' => array(
-                    'title' => __('Fail / Cancel Page'),
-                    'type' => 'select',
-                    'options' => $this->get_pages( 'Select Fail / Cancel Page'),
+                    'title'       => __('Fail / Cancel Page'),
+                    'type'        => 'select',
+                    'options'     => $this->get_pages( 'Select Fail / Cancel Page'),
                     'description' => "User will be redirected here if transaction fails or get canceled. We recommend <span style='color: green;'><b>Cart Page</b></span>."
                 )
             );
@@ -102,6 +102,7 @@
             echo '<h2>' . __('SSLCommerz Payment Gateway', 'sslcommerz') . '</h2>';
             echo '<p>' . __('Configure parameters to start accepting payments.') . '</p><hr>';
             echo "<h4 style='color:green;'>" . __("Register for sandbox merchant panel & store credentials <a href='https://developer.sslcommerz.com/registration/' target='blank'>Click Here</a> .") . "</h4><hr>";
+            
             echo '<table class="form-table">';
             // Generate the HTML For the settings form.
             $this->generate_settings_html();
@@ -115,10 +116,10 @@
             $mu_plugin_dir = wp_normalize_path(WPMU_PLUGIN_DIR);
 
             if (!empty($plugin) && 0 === strpos($plugin, $mu_plugin_dir)) {
-                    $url = WPMU_PLUGIN_URL;
-                } else {
-                    $url = WP_PLUGIN_URL;
-                }
+                $url = WPMU_PLUGIN_URL;
+            else {
+                $url = WP_PLUGIN_URL;
+            }
 
             $url = set_url_scheme($url);
 
@@ -205,7 +206,6 @@
             <?php
         }
 
-
         /**
          * Generate sslcommerz button link
          **/
@@ -285,33 +285,36 @@
             if($this->settings['hosted'] == 'yes')
             {
             	# REQUEST SEND TO SSLCOMMERZ
-	            $handle = curl_init();
-	            curl_setopt($handle, CURLOPT_URL, $liveurl);
-	            curl_setopt($handle, CURLOPT_TIMEOUT, 10);
-	            curl_setopt($handle, CURLOPT_CONNECTTIMEOUT, 10);
-	            curl_setopt($handle, CURLOPT_POST, 1);
-	            curl_setopt($handle, CURLOPT_POSTFIELDS, $post_data);
-	            curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+	     	    $response = wp_remote_post( $liveurl, array(
+				    'method'      => 'POST',
+					'timeout'     => 30,
+					'redirection' => 10,
+					'httpversion' => '1.1',
+					'blocking'    => true,
+					'headers'     => array(),
+					'body'        => $post_data,
+					'cookies'     => array(),
+				    )
+				);
 
-	            $content = curl_exec($handle);
-	            $code = curl_getinfo($handle, CURLINFO_HTTP_CODE);
-
-	            if ($code == 200 && !(curl_errno($handle))) {
-	                curl_close($handle);
-	                $sslcommerzResponse = $content;
-
-	                # PARSE THE JSON RESPONSE
-	                $sslcz = json_decode($sslcommerzResponse, true);
-	                if ($sslcz['status'] == 'FAILED') {
+				if($response['response']['code'] == 200)
+				{
+					$sslcz = json_decode($response['body'], true);
+					if ($sslcz['status'] == 'FAILED') {
 	                    echo "FAILED TO CONNECT WITH SSLCOMMERZ API";
 	                    echo "<br/>Failed Reason: " . $sslcz['failedreason'];
 	                    exit;
 	                }
-	            } else {
-	                curl_close($handle);
-	                echo "FAILED TO CONNECT WITH SSLCOMMERZ API";
-	                exit;
-	            }
+				}
+				else
+				{
+					if ( is_wp_error( $response ) ) {
+						echo $response->get_error_message();
+					}
+					echo "Error Code: ".$response['response']['code'];
+					echo "FAILED TO CONNECT WITH SSLCOMMERZ API";
+					exit;
+				}
 
 	            return '<form action="' . $sslcz['GatewayPageURL'] . '" method="post" id="sslcommerz_payment_form">
 	                <input type="submit" class="button-alt" id="submit_sslcommerz_payment_form" value="' . __('Pay via sslcommerz', 'sslcommerz') . '" /> <a class="button cancel" href="' . $order->get_cancel_order_url() . '">' . __('Cancel order &amp; restore cart', 'sslcommerz') . '</a>
@@ -363,11 +366,11 @@
         function check_sslcommerz_response()
         {
             global $woocommerce;
-            $tran_id = $_REQUEST['tran_id'];
-            $val_id = $_REQUEST['val_id'];
+            $tran_id = sanitize_text_field($_REQUEST['tran_id']);
+            $val_id = sanitize_text_field($_REQUEST['val_id']);
             $order = wc_get_order($tran_id);
             $fail_url = ($this->fail_page_id == "" || $this->fail_page_id == 0) ? get_site_url() . "/" : get_permalink($this->fail_page_id);
-            // $fail_url = add_query_arg('wc-api', get_class($this), $fail_url);
+            # $fail_url = add_query_arg('wc-api', get_class($this), $fail_url);
 
             if (isset($tran_id) && isset($val_id)) 
             {
@@ -392,20 +395,23 @@
                     $requested_url = ("https://securepay.sslcommerz.com/validator/api/validationserverAPI.php?val_id=" . $val_id . "&Store_Id=" . $store_id . "&Store_Passwd=" . $store_passwd . "&v=1&format=json");
                 }
 
-                $handle = curl_init();
-                curl_setopt($handle, CURLOPT_URL, $requested_url);
-                curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+				$result = wp_remote_post(
+					$requested_url,
+					array(
+						'method'      => 'GET',
+						'timeout'     => 30,
+						'redirection' => 10,
+						'httpversion' => '1.1',
+						'blocking'    => true,
+						'headers'     => array(),
+						'body'        => array(),
+						'cookies'     => array(),
+					)
+				);
 
-                $result = curl_exec($handle);
-                $code = curl_getinfo($handle, CURLINFO_HTTP_CODE);
-
-                if ($code == 200 && !(curl_errno($handle))) {
-                    # TO CONVERT AS ARRAY
-                    # $result = json_decode($result, true);
-                    # $status = $result['status'];  
-
-                    # TO CONVERT AS OBJECT
-                    $result = json_decode($result);
+				if($result['response']['code'] == 200)
+				{
+	                $result = json_decode($result['body']);
 
                     # TRANSACTION INFO
                     $status = $result->status;
@@ -424,7 +430,7 @@
                     $card_issuer_country = $result->card_issuer_country;
                     $card_issuer_country_code = $result->card_issuer_country_code;
 
-                    //Payment Risk Status
+                    # Payment Risk Status
                     $risk_level = $result->risk_level;
                     $risk_title = $result->risk_title;
 
@@ -460,13 +466,14 @@
                     else {
                         $pay_status = 'failed';
                     }
-                }
+	            }
 
                 if ($tran_id != '') {
-                    try {
+                    try 
+                    {
                         $order = wc_get_order($tran_id);
-                        $store_id = $_REQUEST['[tran_id'];
-                        $amount = $_REQUEST['amount'];
+                        $store_id = sanitize_text_field($_REQUEST['tran_id']);
+                        $amount = sanitize_text_field($_REQUEST['amount']);
                         $transauthorised = false;
 
                         if ($pay_status == "success") {
@@ -509,11 +516,11 @@
                             $this->msg['message'] = "Thank you for shopping with us. However, the transaction has been declined.";
                         }
 
-                    } catch (Exception $e) {
+                    } 
+                    catch (Exception $e) {
                         $msg = "Error";
                     }
                 }
-
                 wp_redirect($redirect_url);
             }
         }
@@ -523,7 +530,7 @@
             return '<div class="box ' . $this->msg['class'] . '-box">' . $this->msg['message'] . '</div>' . $content;
         }
 
-        // get all pages
+        # get all pages
         function get_pages($title = false, $indent = true)
         {
             $wp_pages = get_pages('sort_column=menu_order');
@@ -531,7 +538,7 @@
             if ($title) $page_list[] = $title;
             foreach ($wp_pages as $page) {
                 $prefix = '';
-                // show indented child pages?
+                # show indented child pages?
                 if ($indent) {
                     $has_parent = $page->post_parent;
                     while ($has_parent) {
@@ -540,7 +547,7 @@
                         $has_parent = $next_page->post_parent;
                     }
                 }
-                // add to page list array array
+                # add to page list array array
                 $page_list[$page->ID] = $prefix . $page->post_title;
             }
             return $page_list;

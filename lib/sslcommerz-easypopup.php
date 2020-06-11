@@ -1,5 +1,9 @@
 <?php 
 
+/*
+* Rewrite url for easyCheckout popup.
+*/
+
 class V4checkout_page
 {
     protected static $instance = NULL;

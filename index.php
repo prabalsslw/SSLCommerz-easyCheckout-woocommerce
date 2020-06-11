@@ -1,3 +1,3 @@
 <?php
-	# Welcome to SSLCommerz
+	# Welcome to SSLCommerz. This is SSLCommerz official plugin.
 ?>
