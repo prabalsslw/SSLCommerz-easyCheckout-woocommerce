@@ -117,6 +117,7 @@
 
             if (!empty($plugin) && 0 === strpos($plugin, $mu_plugin_dir)) {
                 $url = WPMU_PLUGIN_URL;
+            }
             else {
                 $url = WP_PLUGIN_URL;
             }
